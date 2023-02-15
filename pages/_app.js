@@ -4,7 +4,7 @@ import { Poppins } from '@next/font/google';
 import { QueryClient, QueryClientProvider, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const queryClient = new QueryClient();
 const poppins = Poppins({
    weight: ['300', '400', '500', '600', '700'],
@@ -13,6 +13,13 @@ const poppins = Poppins({
 });
 export default function App({ Component, pageProps }) {
    const [interval, setInterval] = useState(0);
+   const [isSSR, setIsSSR] = useState(true);
+   useEffect(() => {
+      setIsSSR(false);
+   }, []);
+
+   if (isSSR) return null;
+
    return (
       <QueryClientProvider client={queryClient}>
          <SessionProvider session={pageProps.session} refetchInterval={interval}>

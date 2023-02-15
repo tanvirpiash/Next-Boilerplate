@@ -1,8 +1,8 @@
+import Username from '@/components/Username';
 import useProfile from '@/src/store/store';
 import { signIn, signOut } from 'next-auth/react';
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-const Username = dynamic(() => import('@/components/username'), { ssr: false });
+
+// const Username = dynamic(() => import('@/components/username'), { ssr: false });
 
 export default function Home() {
    const name = useProfile((state) => state.name);
